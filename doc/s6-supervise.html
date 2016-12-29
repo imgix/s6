@@ -116,6 +116,11 @@ daemon as <tt>fdmove -c 2 1 fdmove 1 3 prog...</tt> (in execline), or
  <li> SIGQUIT: close stdin, stdout and stderr and exit as soon as
 the service stops, as if a
 <a href="s6-svc.html">s6-svc -X</a> command had been received </li>
+ <li> SIGINT: by default, <tt>s6-supervise</tt> does nothing special
+with SIGINT - if it receives one, it just dies. However, it is possible
+to make it ignore SIGINT by creating an empty
+<tt>supervisor-ignore-sigint</tt> regular file in the service directory
+it manages. </li>
 </ul>
 
 <h2> Usage notes </h2>

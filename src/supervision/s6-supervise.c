@@ -52,6 +52,7 @@ static s6_svstatus_t status = S6_SVSTATUS_ZERO ;
 static state_t state = DOWN ;
 static int cont = 1 ;
 static int notifyfd = -1 ;
+static int ignoresigint = 0 ;
 
 static inline void settimeout (int secs)
 {
@@ -203,6 +204,13 @@ static int maybesetsid (void)
   return 1 ;
 }
 
+static void cleanup_signals (void)
+{
+  selfpipe_finish() ;
+  if (ignoresigint) sig_restore(SIGINT) ;
+  sig_restore(SIGPIPE) ;
+}
+
 static void trystart (void)
 {
   int p[2] ;
@@ -236,7 +244,7 @@ static void trystart (void)
   {
     char const *cargv[2] = { "run", 0 } ;
     PROG = "s6-supervise (child)" ;
-    selfpipe_finish() ;
+    cleanup_signals() ;
     if (notifyp[0] >= 0) close(notifyp[0]) ;
     close(p[0]) ;
     if (notifyp[1] >= 0 && fd_move((int)fd, notifyp[1]) < 0)
@@ -342,7 +350,7 @@ static int uplastup_z (void)
     char fmt0[UINT_FMT] ;
     char fmt1[UINT_FMT] ;
     char *cargv[4] = { "finish", fmt0, fmt1, 0 } ;
-    selfpipe_finish() ;
+    cleanup_signals() ;
     fmt0[uint_fmt(fmt0, WIFSIGNALED(status.wstat) ? 256 : WEXITSTATUS(status.wstat))] = 0 ;
     fmt1[uint_fmt(fmt1, WTERMSIG(status.wstat))] = 0 ;
     maybesetsid() ;
@@ -583,6 +591,11 @@ int main (int argc, char const *const *argv)
     if (!ftrigw_clean(S6_SUPERVISE_EVENTDIR))
       strerr_warnwu2sys("ftrigw_clean ", S6_SUPERVISE_EVENTDIR) ;
 
+    if (access("supervisor-ignore-sigint", F_OK) == 0)
+    {
+      if (sig_ignore(SIGINT) < 0) strerr_diefu1sys(111, "ignore SIGINT") ;
+      ignoresigint = 1 ;
+    }
     if (access("down", F_OK) == 0) status.flagwantup = 0 ;
     else if (errno != ENOENT)
       strerr_diefu1sys(111, "access ./down") ;
