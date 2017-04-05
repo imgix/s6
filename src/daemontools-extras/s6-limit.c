@@ -9,18 +9,18 @@
 
 static const char USAGE[] = 
   "s6-limit OPTIONS prog...\n"
-  "  soft,hard limit:\n"
-  "    -a,-A allbytes\n"
-  "    -c,-C corebytes\n"
-  "    -d,-D databytes\n"
-  "    -f,-F filebytes\n"
-  "    -l,-L lockbytes\n"
-  "    -m,-M membytes\n"
-  "    -o,-O openfiles\n"
-  "    -p,-P processes\n"
-  "    -r,-R residentbytes\n"
-  "    -s,-S stackbytes\n"
-  "    -t,-T cpusecs";
+  "  SOFT  HARD  RESOURCE\n"
+  "  -a    -A    allbytes\n"
+  "  -c    -C    corebytes\n"
+  "  -d    -D    databytes\n"
+  "  -f    -F    filebytes\n"
+  "  -l    -L    lockbytes\n"
+  "  -m    -M    membytes\n"
+  "  -o    -O    openfiles\n"
+  "  -p    -P    processes\n"
+  "  -r    -R    residentbytes\n"
+  "  -s    -S    stackbytes\n"
+  "  -t    -T    cpusecs";
 
 static void doit (int res, int opt, char const *arg)
 {
