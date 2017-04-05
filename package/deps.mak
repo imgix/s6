@@ -27,6 +27,7 @@ src/daemontools-extras/s6-setlock.o src/daemontools-extras/s6-setlock.lo: src/da
 src/daemontools-extras/s6-setsid.o src/daemontools-extras/s6-setsid.lo: src/daemontools-extras/s6-setsid.c
 src/daemontools-extras/s6-setuidgid.o src/daemontools-extras/s6-setuidgid.lo: src/daemontools-extras/s6-setuidgid.c src/include/s6/config.h
 src/daemontools-extras/s6-softlimit.o src/daemontools-extras/s6-softlimit.lo: src/daemontools-extras/s6-softlimit.c
+src/daemontools-extras/s6-limit.o src/daemontools-extras/s6-limit.lo: src/daemontools-extras/s6-limit.c
 src/daemontools-extras/s6-tai64n.o src/daemontools-extras/s6-tai64n.lo: src/daemontools-extras/s6-tai64n.c
 src/daemontools-extras/s6-tai64nlocal.o src/daemontools-extras/s6-tai64nlocal.lo: src/daemontools-extras/s6-tai64nlocal.c
 src/daemontools-extras/ucspilogd.o src/daemontools-extras/ucspilogd.lo: src/daemontools-extras/ucspilogd.c
@@ -167,6 +168,8 @@ s6-setuidgid: EXTRA_LIBS :=
 s6-setuidgid: src/daemontools-extras/s6-setuidgid.o -lskarnet
 s6-softlimit: EXTRA_LIBS :=
 s6-softlimit: src/daemontools-extras/s6-softlimit.o -lskarnet
+s6-limit: EXTRA_LIBS :=
+s6-limit: src/daemontools-extras/s6-limit.o -lskarnet
 s6-tai64n: EXTRA_LIBS := ${SYSCLOCK_LIB}
 s6-tai64n: src/daemontools-extras/s6-tai64n.o -lskarnet
 s6-tai64nlocal: EXTRA_LIBS :=

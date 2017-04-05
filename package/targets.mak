@@ -24,6 +24,7 @@ s6-log \
 s6-setlock \
 s6-setsid \
 s6-softlimit \
+s6-limit \
 s6-tai64n \
 s6-tai64nlocal \
 s6-accessrules-cdb-from-fs \

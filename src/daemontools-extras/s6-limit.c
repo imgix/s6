@@ -42,6 +42,7 @@ static void doit (int res, int opt, char const *arg)
       if (n > (uint64_t)r.rlim_max) n = (uint64_t)r.rlim_max ;
       r.rlim_cur = (rlim_t)n ;
     }
+  }
   if (setrlimit(res, &r) < 0) strerr_diefu1sys(111, "setrlimit") ;
 }
 

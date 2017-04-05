@@ -26,6 +26,7 @@ s6-setlock			0755
 s6-setsid			0755
 s6-setuidgid			0700
 s6-softlimit			0755
+s6-limit			0755
 s6-tai64n			0755
 s6-tai64nlocal			0755
 s6-accessrules-cdb-from-fs	0755
